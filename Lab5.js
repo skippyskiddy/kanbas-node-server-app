@@ -17,10 +17,6 @@ const todos = [
   { id: 4, title: "Task 4", completed: true },
 ];
 const Lab5 = (app) => {
-  app.get("/a5/todos", (req, res) => {
-    res.json(todos);
-  });
-
   app.get("/a5/assignment", (req, res) => {
     res.json(assignment);
   });
@@ -172,6 +168,7 @@ const Lab5 = (app) => {
 	
 		app.get("/a5/todos", (req, res) => {
 			const { completed } = req.query;
+			console.log(completed);
 			if (completed !== undefined) {
 				const completedBool = completed === "true";
 				const completedTodos = todos.filter(
@@ -180,7 +177,7 @@ const Lab5 = (app) => {
 				return;
 			}
 	
-			res.json(todo);
+			res.json(todos);
 		});
 
 		// app.get("/a5/todos/:id/delete", (req, res) => {
