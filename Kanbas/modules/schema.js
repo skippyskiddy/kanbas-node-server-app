@@ -7,7 +7,6 @@ const lessonSchema = new mongoose.Schema({
 });
 
 const moduleSchema = new mongoose.Schema({
-  _id: { type: mongoose.Schema.Types.ObjectId, required: true },
   name: { type: String, required: true },
   description: { type: String, required: true },
   course: { type: mongoose.Schema.Types.ObjectId, required: true, ref: 'Modules' },

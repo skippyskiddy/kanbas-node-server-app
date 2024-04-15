@@ -2,8 +2,13 @@ import * as dao from "./dao.js";
 
 export default function UserRoutes(app) {
   const createUser = async (req, res) => {
-    const user = await dao.createUser(req.body);
-    res.json(user);
+    try {
+      const user = await dao.createUser(req.body);
+      res.json(user);
+    } catch (err) {
+      res.status(400).json(
+      { message: "Account cannot be created, select unique username." });
+    }
   };
   app.post("/api/users", createUser);  
   
@@ -32,6 +37,7 @@ const findAllUsers = async (req, res) => {
     if (user) {
       res.status(400).json(
         { message: "Username already taken" });
+      return;
     }
     const currentUser = await dao.createUser(req.body);
     req.session["currentUser"] = currentUser;
@@ -53,7 +59,10 @@ const findAllUsers = async (req, res) => {
   }
   
     res.json(status); } 
+
     catch (err) {
+      res.status(500).json(
+        { message: "Error updating user." });
     }
   };
 

@@ -8,7 +8,7 @@ export default function AssignmentRoutes(app) {
     const newAssignment = {
       ...req.body,
       course: mid,
-      // _id: new Date().getTime().toString(), // Unique ID for the assignment
+      _id: new Date().getTime().toString(), // Unique ID for the assignment
     };
     Database.assignments.push(newAssignment);
     res.status(201).send(newAssignment); // 201 Created
@@ -24,7 +24,7 @@ export default function AssignmentRoutes(app) {
   // Retrieve a single assignment by ID
   app.get("/api/assignments/:aid", (req, res) => {
     const { aid } = req.params; // Assignment ID
-    const assignment = Database.assignments.find((a) => a._id.$oid === aid);
+    const assignment = Database.assignments.find((a) => a._id === aid);
     if (!assignment) {
       res.status(404).send("Assignment not found");
       return;
@@ -35,7 +35,7 @@ export default function AssignmentRoutes(app) {
   // Update an assignment
   app.put("/api/assignments/:aid", (req, res) => {
     const { aid } = req.params;
-    const assignmentIndex = Database.assignments.findIndex((a) => a._id.$oid === aid);
+    const assignmentIndex = Database.assignments.findIndex((a) => a._id === aid);
     if (assignmentIndex === -1) {
       res.status(404).send("Assignment not found");
       return;
@@ -51,7 +51,7 @@ export default function AssignmentRoutes(app) {
   app.delete("/api/assignments/:aid", (req, res) => {
     const { aid } = req.params;
     const initialLength = Database.assignments.length;
-    Database.assignments = Database.assignments.filter((a) => a._id.$oid !== aid);
+    Database.assignments = Database.assignments.filter((a) => a._id !== aid);
     if (Database.assignments.length === initialLength) {
       res.status(404).send("Assignment not found");
       return;

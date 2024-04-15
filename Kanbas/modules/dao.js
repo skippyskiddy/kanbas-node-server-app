@@ -6,6 +6,7 @@ export const createModule = async (moduleId, moduleData) => {
     ...moduleData,
     course: moduleId
   });
+  delete newModule._id;
   return newModule.save();
 };
 
