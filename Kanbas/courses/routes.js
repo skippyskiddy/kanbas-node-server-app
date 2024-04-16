@@ -44,7 +44,7 @@ export default function CourseRoutes(app) {
     const courseUpdates = req.body;
     try {
       const updated = await dao.updateCourse(id, courseUpdates);
-      if (updated.nModified > 0) {
+      if (updated) {
         res.sendStatus(204);
       } else {
         res.status(404).send("Course not found");
