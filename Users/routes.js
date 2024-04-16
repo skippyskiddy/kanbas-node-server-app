@@ -73,7 +73,8 @@ const findAllUsers = async (req, res) => {
       req.session["currentUser"] = currentUser;
       res.json(currentUser);
     } else {
-      res.sendStatus(401);
+      res.status(401).json({ message: "Either password or username is incorrect." });
+      return;
     }
   };
 
